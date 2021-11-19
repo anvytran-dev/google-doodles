@@ -1,0 +1,48 @@
+.divDoodles{
+    display: flex;
+    justify-content: center;
+}
+
+.dateDiv{
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    font-size: 25px;
+}
+
+.currentDate{
+    text-align: center;
+    width: 25%;
+}
+.doodles{
+    width: 80%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.card{
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.pastButton{
+    background-color: green;
+}
+
+.futureButton{
+    background-color: red;
+}
+
+#getDoodlesButton{
+    background-color: blue;
+}
