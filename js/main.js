@@ -21,8 +21,6 @@ pastButton.addEventListener('click', getPastDoodle);
 futureButton.addEventListener('click', getFutureDoodle);
 getDoodlesButton.addEventListener('click', getDoodlesFromInput)
 
-// let buttons = document.querySelectorAll('button');
-// buttons.forEach(btn => btn.addEventListener('mouseenter', changeColor))
 
 function randomColor(){
     let randomColor = Math.random();
@@ -30,15 +28,15 @@ function randomColor(){
     if (randomColor <= 0.25) {
         randomColor = 'red';
     } else if (randomColor <= 0.50) {
-        randomColor = 'yellow';
+        randomColor = 'orange';
     } else if (randomColor <= 0.75) {
         randomColor = 'green';
     } else {
         randomColor = 'blue';
     }
-
     return randomColor;
 }
+
 
 function changeColor(e) {
     let btn = e.target
@@ -73,7 +71,19 @@ function changeToDateString() {
 //called upon refresh
 function loadPage() {
     
+    loadTitle();
     convertDate(current);
+
+}
+
+function loadTitle() {
+    let letters = document.querySelectorAll('.letter');
+    letters.forEach(function(letter) {
+        letter.style.color = randomColor()
+        if(letter.innerHTML== " ") {
+            letter.style = "width: 2%";
+        }}
+    );
 }
 async function convertDate(currentDate) {
     console.log(currentDate)
@@ -113,7 +123,7 @@ async function fetchDoodle(year, month, day) {
 
     //create div
     let div = document.createElement('div');
-    div.classList.add('doodles', 'd-flex', 'flex-wrap');
+    div.classList.add('doodles', 'd-flex', 'flex-wrap', 'justify-content-between');
     div.id = 'doodlesCardDiv';
     document.querySelector('.divDoodles').append(div);
 
@@ -125,7 +135,7 @@ async function fetchDoodle(year, month, day) {
 
         let response = await fetch(url);
         let data = await response.json();
-
+        
         for (let i = 0; i < data.length; i++) {
 
             if (data[i].run_date_array[2] == day) {
@@ -135,11 +145,13 @@ async function fetchDoodle(year, month, day) {
                 doodle.classList.add('card');
                 doodle.style = 'height: 20rem';
                 doodle.style = 'width: 33%';
+
                 doodleDiv.append(doodle);
 
                 //create img and add img
                 let img = document.createElement('img');
                 img.classList.add('card-img-top');
+                img.style = 'height: 150px';
                 img.setAttribute('src', data[i].url);
                 doodle.append(img);
 
@@ -173,6 +185,7 @@ async function fetchDoodle(year, month, day) {
                 div.append(button);
                 button.addEventListener('click', redirectToSearch)
 
+                // https://www.google.com/search?q=Children%27s%20Day%202019%20(Thailand)%20January%2012%202019
                 //creating re-direct query after the user clicks on the button
                 let dateArray = [month, day, year]
                 let holiday = data[i].title.split(" ").concat(dateArray);
